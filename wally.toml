@@ -6,4 +6,3 @@ realm = "shared"
 
 [dependencies]
 Fusion = "elttob/fusion@^0.0.1-beta"
-Rodux = "roblox/rodux@^3.0.0"
