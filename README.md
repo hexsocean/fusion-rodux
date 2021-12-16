@@ -7,7 +7,8 @@ local ProvideStore = game:GetService("ReplicatedStorage").Packages.FusionRodux
 local store: Rodux.Store = -- a Rodux store of your choice, for example this one would return {10}
 local provideRoduxFusionStore = ProvideStore(store)
 
--- this is where we map the state to the store
+-- this is where we map the state to the store, the function passed in is optional and if it isn't
+-- passed, then the Fusion state will be the same as the Rodux store state.
 local state, disconnect = provideRoduxFusionStore(function(storeState)
     return storeState[1] -- choose where the store maps to for this store.
 end)
