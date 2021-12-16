@@ -5,6 +5,7 @@ local function NewStoreStateConnection<T>(store: Rodux.Store, fusionState: Fusio
         error("Must pass in a function to map the store to the fusion state", 2)
         return
     end
+    fusionState:set(mapStoreToState(store:getState()))
     return store.changed:connect(function(newState)
         fusionState:set(mapStoreToState(newState))
     end)
@@ -15,7 +16,7 @@ local function ProvideStore(store: Rodux.Store)
     -- Takes in a function to map the store state to a fusion state.
     -- Returns the fusion state in a tuple with a function to disconnect the store from the state.
     return function <T>(mapStoreToState: (any) -> T): (Fusion.State<T>, () -> nil)
-        local boundState = Fusion.State(store:getState())
+        local boundState = Fusion.State()
         local bind = NewStoreStateConnection(store, boundState, mapStoreToState)
         return boundState, bind.disconnect
     end
